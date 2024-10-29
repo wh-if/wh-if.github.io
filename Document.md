@@ -46,17 +46,12 @@
 
 * [Number - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number) 
 * [parseInt和Number - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/28524998) 
-* [['1','2','3'\].map(parseInt)返回结果是什么_xiaoxiao的博客-CSDN博客](https://blog.csdn.net/weixin_44138611/article/details/89139475) 
+* [\['1','2','3'\].map(parseInt)返回结果是什么_xiaoxiao的博客-CSDN博客](https://blog.csdn.net/weixin_44138611/article/details/89139475) 
 
 ### 数组、字符串的API
 
 * [Array - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array) 
 * [String - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String) 
-
-### for in和for of遍历：迭代器和可迭代对象
-
-   * [for in 和for of的区别 - 零度从容 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zjx304/p/10687017.html) 
-   * [js中的迭代器(Iterator) - 掘金 (juejin.cn)](https://juejin.cn/post/7018850645226569758) 
 
 ### 原型和原型链：Object和Function
 
@@ -67,17 +62,6 @@
 
 * [call、apply、bind的原理剖析及实现 - 渣渣逆天 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zhazhanitian/p/11400898.html) 
 
-### 闭包
-
-* [闭包 - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) 
-
-> *闭包*是由函数以及声明该函数的词法环境组合而成的。
->
-> 一个作用域及其所有变量都会在对应的代码执行结束后被销毁。但是，在创建了一个闭包以后，这个作用域就会一直保存到闭包不存在为止。
-
-### ES6 的class 在ES5 中如何实现 、实现继承的几种方式
-
-* [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
 
 ### Promise、Generator 和 async/await 
 

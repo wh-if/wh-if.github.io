@@ -1,10 +1,20 @@
 ## 核心要点
 
-### 箭头函数与普通函数区别
+### 箭头函数与普通函数
 1. 箭头函数不绑定arguments，取而代之用rest参数...解决。
 2. this的作用域不同，箭头函数不绑定this，会捕获其所在的上下文的this值，作为自己的this值。
 3. 箭头函数没有原型属性，不能作为构造函数，不能使用`new`。
 4. 箭头函数不能当做Generator函数，不能使用`yield`关键字。
+5. 注意`new`调用和常规调用函数内`this`指向的区别。
+
+    ```javascript
+    function Fn() {
+        this.hello = "world"
+        console.log(this);
+    }
+    Fn(); // Window
+    new Fn() // Fn {hello: 'world'}
+    ```
 
 > [箭头函数与普通函数区别](https://segmentfault.com/a/1190000040016702#item-2-1)
 
@@ -14,16 +24,6 @@
 
 > [setTimeout详解 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/110274000)   
 > [谈谈setTimeout的作用域以及this的指向问题 - 博客园 (cnblogs.com)](https://www.cnblogs.com/yuqingfamily/p/5816560.html) 
-
-### 注意`new`调用和常规调用函数内`this`指向的区别
-```javascript
-function Fn() {
-    this.hello = "world"
-    console.log(this);
-}
-Fn(); // Window
-new Fn() // Fn {hello: 'world'}
-```
 
 ### 区分var、let、cosnt
 - 变量提升（函数的优先级更高）
@@ -121,6 +121,57 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 > [判断JS数据类型的四种方法 - 一像素 - 博客园 (cnblogs.com)](https://www.cnblogs.com/onepixel/p/5126046.html)   
 > [js隐式类型转换_51CTO博客_js类型转换](https://blog.51cto.com/u_15100527/2617182) 
 
+
+### 闭包
+
+闭包是由捆绑起来（封闭的）的函数和函数周围状态（词法环境）的引用组合而成。换言之，闭包让函数能访问它的外部作用域。
+
+函数内包含函数，内部函数引用了外部的变量，导致外部函数在执行结束后不回收这部分变量，因此使用闭包需要注意内存泄漏。
+
+> [闭包 - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) 
+
+
+### 迭代遍历
+
+1. `for in`和`for of`遍历
+- `for in`遍历的是数组的索引（即键名），而`for of`遍历的是数组元素值。
+- 通常用`for in`来遍历对象。`for in`循环会遍历对象自身的和继承的可枚举属性（不含`Symbol`属性），因此在使用时注意判断某属性是否是该对象的实例属性。
+
+2. 可迭代对象、迭代器和迭代器对象
+- 可迭代对象：表现为存在`Symbol.iterator`属性的对象，例如Array。
+- 迭代器：`Symbol.iterator`即为迭代器，是一个函数，返回一个迭代器对象。可以自定义实现，Array等具有默认实现。
+```javascript
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> [for in 和for of的区别 - 零度从容 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zjx304/p/10687017.html)   
+> [js中的迭代器(Iterator) - 掘金 (juejin.cn)](https://juejin.cn/post/7018850645226569758) 
+
+
+### 继承
+
+* [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
 
 ### 短句
 1. js对象的key类型：字符串（number会转成string）、Symbol。
