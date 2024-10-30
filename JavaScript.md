@@ -1,4 +1,4 @@
-## 核心要点
+## 要点归纳
 
 ### 箭头函数与普通函数
 1. 箭头函数不绑定arguments，取而代之用rest参数...解决。
@@ -137,33 +137,43 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 - `for in`遍历的是数组的索引（即键名），而`for of`遍历的是数组元素值。
 - 通常用`for in`来遍历对象。`for in`循环会遍历对象自身的和继承的可枚举属性（不含`Symbol`属性），因此在使用时注意判断某属性是否是该对象的实例属性。
 
-2. 可迭代对象、迭代器和迭代器对象
-- 可迭代对象：表现为存在`Symbol.iterator`属性的对象，例如Array。
-- 迭代器：`Symbol.iterator`即为迭代器，是一个函数，返回一个迭代器对象。可以自定义实现，Array等具有默认实现。
-```javascript
+2. 迭代器
+- `Symbol.iterator`即为迭代器，是一个函数，返回一个迭代器对象。可以自定义实现，Array等具有默认实现。
+    ```javascript
+    let obj1 = {
+        'name': '前端小鹿',
+        'age': '18',
+        'sex': '男'
+    }
+    for (let i of obj1) {
+        console.log(i); // obj1 is not iterable,obj不是可迭代对象
+    }
 
-```
+    //对obj改造
+    let obj = {
+        data: ['name:小鹿', 'age:18', 'sex:男'],
+        [Symbol.iterator]: function () {
+            const self = this
+            let index = 0;
+            return {
+                next: function () {
+                    console.log(this);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    if (index < self.data.length) {
+                        return {
+                            value: self.data[index++],
+                            done: false
+                        };
+                    }
+                    return { value: undefined, done: true };
+                }
+            }
+        }
+    }
+    for (let i of obj) {
+        console.log(i); // "name:前端小鹿" "age:18" "sex:男"
+    }
+    ```
 
 > [for in 和for of的区别 - 零度从容 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zjx304/p/10687017.html)   
 > [js中的迭代器(Iterator) - 掘金 (juejin.cn)](https://juejin.cn/post/7018850645226569758) 
@@ -171,7 +181,213 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 
 ### 继承
 
-* [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
+```javascript
+function Cat(name){
+  Animal.call(this);
+  this.name = name || 'Tom';
+}
+Cat.prototype = new Animal();
+
+Cat.prototype.constructor = Cat; // 修复构造函数指向的。
+```
+
+> [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
+
+
+### 深浅拷贝
+
+```javascript
+function deepClone(target) {
+    // 创建一个 WeakMap 来保存已经拷贝过的对象，以防止循环引用
+    const map = new Map();
+
+    // 辅助函数：判断一个值是否为对象或函数
+    function isObject(target) {
+        return (
+            (typeof target === "object" && target) || // 检查是否是非null的对象
+            typeof target === "function" // 或者是函数
+        );
+    }
+
+    // 主要的拷贝函数
+    function clone(data) {
+        // 基本类型直接返回
+        if (!isObject(data)) {
+            return data;
+        }
+
+        // 对于日期和正则对象，直接使用它们的构造函数创建新的实例
+        if ([Date, RegExp].includes(data.constructor)) {
+            return new data.constructor(data);
+        }
+
+        // 对于函数，创建一个新函数并返回
+        if (typeof data === "function") {
+            return new Function("return " + data.toString())();
+        }
+
+        // 检查该对象是否已被拷贝过
+        const exist = map.get(data);
+        if (exist) {
+            return exist; // 如果已经拷贝过，直接返回之前的拷贝结果
+        }
+
+        // 如果数据是 Map 类型
+        if (data instanceof Map) {
+            const result = new Map();
+            map.set(data, result); // 记录当前对象到 map
+            data.forEach((val, key) => {
+                // 对 Map 的每一个值进行深拷贝
+                result.set(key, clone(val));
+            });
+            return result; // 返回新的 Map
+        }
+
+        // 如果数据是 Set 类型
+        if (data instanceof Set) {
+            const result = new Set();
+            map.set(data, result); // 记录当前对象到 map
+            data.forEach((val) => {
+                // 对 Set 的每一个值进行深拷贝
+                result.add(clone(val));
+            });
+            return result; // 返回新的 Set
+        }
+
+        // 获取对象的所有属性，包括 Symbol 类型和不可枚举的属性
+        const keys = Reflect.ownKeys(data);
+        // 获取对象所有属性的描述符
+        const allDesc = Object.getOwnPropertyDescriptors(data);
+        // 创建新的对象并继承原对象的原型链
+        const result = Object.create(Object.getPrototypeOf(data), allDesc);
+
+        map.set(data, result); // 记录当前对象到 map
+
+        // 对象属性的深拷贝
+        keys.forEach((key) => {
+            result[key] = clone(data[key]);
+        });
+
+        return result; // 返回新的对象
+    }
+
+    return clone(target); // 开始深拷贝
+}
+```
+
+### call、apply和bind
+
+```javascript
+Function.prototype.imitateCall = function (context) {
+    // 赋值作用域参数，如果没有则默认为 window，即访问全局作用域对象
+    context = context || window
+    // 绑定调用函数（.call之前的方法即this，前面提到过调用call方法会调用一遍自身，所以这里要存下来）
+    context.invokFn = this
+    // 截取作用域对象参数后面的参数
+    let args = [...arguments].slice(1)
+    // 执行调用函数，记录拿取返回值
+    let result = context.invokFn(...args)
+    // 销毁调用函数，以免作用域污染
+    Reflect.deleteProperty(context, 'invokFn')
+    return result
+}
+
+Function.prototype.imitateApply = function (context) {
+    // 赋值作用域参数，如果没有则默认为 window，即访问全局作用域对象
+    context = context || window
+    // 绑定调用函数（.call之前的方法即this，前面提到过调用call方法会调用一遍自身，所以这里要存下来）
+    context.invokFn = this
+    // 执行调用函数，需要对是否有参数做判断，记录拿取返回值
+    let result
+    if (arguments[1]) {
+        result = context.invokFn(...arguments[1])
+    } else {
+        result = context.invokFn()
+    }
+    // 销毁调用函数，以免作用域污染
+    Reflect.deleteProperty(context, 'invokFn')
+    return result
+}
+
+Function.prototype.imitateBind = function (context) {
+    // 获取绑定时的传参
+    let args = [...arguments].slice(1),
+        // 定义中转构造函数，用于通过原型连接绑定后的函数和调用bind的函数
+        F = function () { },
+        // 记录调用函数，生成闭包，用于返回函数被调用时执行
+        self = this,
+        // 定义返回(绑定)函数
+        bound = function () {
+            // 合并参数，绑定时和调用时分别传入的
+            let finalArgs = [...args, ...arguments]
+
+            // 改变作用域，注:aplly/call是立即执行函数，即绑定会直接调用
+            // 这里之所以要使用instanceof做判断，是要区分是不是new xxx()调用的bind方法
+            return self.call((this instanceof F ? this : context), ...finalArgs)
+        }
+
+    // 将调用函数的原型赋值到中转函数的原型上
+    F.prototype = self.prototype
+    // 通过原型的方式继承调用函数的原型
+    bound.prototype = new F()
+
+    return bound
+}
+``` 
+> [call、apply、bind的原理剖析及实现 - 渣渣逆天 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zhazhanitian/p/11400898.html) 
+
+
+### 防抖节流
+
+- 防抖：`n`秒后在执行该事件，若在`n`秒内被重复触发，则重新计时。
+- 节流：`n`秒内只运行一次，若在`n`秒内重复触发，只有一次生效。
+
+```javascript
+function debounce(func, wait, immediate) {
+
+    let timeout;
+
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        if (timeout) clearTimeout(timeout); // timeout 不为null
+        if (immediate) {
+            let callNow = !timeout; // 第一次会立即执行，以后只有事件执行后才会再次触发
+            timeout = setTimeout(function () {
+                timeout = null;
+            }, wait)
+            if (callNow) {
+                func.apply(context, args)
+            }
+        }
+        else {
+            timeout = setTimeout(function () {
+                func.apply(context, args)
+            }, wait);
+        }
+    }
+}
+
+function throttled(fn, delay) {
+    let timer = null
+    let starttime = Date.now()
+    return function () {
+        let curTime = Date.now() // 当前时间
+        let remaining = delay - (curTime - starttime)  // 从上一次到现在，还剩下多少多余时间
+        let context = this
+        let args = arguments
+        clearTimeout(timer)
+        if (remaining <= 0) {
+            fn.apply(context, args)
+            starttime = Date.now()
+        } else {
+            timer = setTimeout(fn, remaining);
+        }
+    }
+}
+```
+> [防抖节流的实现](https://vue3js.cn/interview/JavaScript/debounce_throttle.html)
 
 ### 短句
 1. js对象的key类型：字符串（number会转成string）、Symbol。

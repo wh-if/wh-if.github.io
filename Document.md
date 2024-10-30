@@ -58,11 +58,6 @@
 * [关于原型和原型链的详细理解 - 简书 (jianshu.com)](https://www.jianshu.com/p/700a2a579351) 
 
 
-### call、apply、bind
-
-* [call、apply、bind的原理剖析及实现 - 渣渣逆天 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zhazhanitian/p/11400898.html) 
-
-
 ### Promise、Generator 和 async/await 
 
 * Promise优缺点
@@ -80,89 +75,6 @@
 
 ### 手写掌握
 
-* 深浅拷贝
-
-  ```javascript
-  function deepClone(target) {
-      // 创建一个 WeakMap 来保存已经拷贝过的对象，以防止循环引用
-      const map = new Map();
-  
-      // 辅助函数：判断一个值是否为对象或函数
-      function isObject(target) {
-        return (
-          (typeof target === "object" && target) || // 检查是否是非null的对象
-          typeof target === "function" // 或者是函数
-        );
-      }
-  
-      // 主要的拷贝函数
-      function clone(data) {
-        // 基本类型直接返回
-        if (!isObject(data)) {
-          return data;
-        }
-  
-        // 对于日期和正则对象，直接使用它们的构造函数创建新的实例
-        if ([Date, RegExp].includes(data.constructor)) {
-          return new data.constructor(data);
-        }
-  
-        // 对于函数，创建一个新函数并返回
-        if (typeof data === "function") {
-          return new Function("return " + data.toString())();
-        }
-  
-        // 检查该对象是否已被拷贝过
-        const exist = map.get(data);
-        if (exist) {
-          return exist; // 如果已经拷贝过，直接返回之前的拷贝结果
-        }
-  
-        // 如果数据是 Map 类型
-        if (data instanceof Map) {
-          const result = new Map();
-          map.set(data, result); // 记录当前对象到 map
-          data.forEach((val, key) => {
-            // 对 Map 的每一个值进行深拷贝
-            result.set(key, clone(val));
-          });
-          return result; // 返回新的 Map
-        }
-  
-        // 如果数据是 Set 类型
-        if (data instanceof Set) {
-          const result = new Set();
-          map.set(data, result); // 记录当前对象到 map
-          data.forEach((val) => {
-            // 对 Set 的每一个值进行深拷贝
-            result.add(clone(val));
-          });
-          return result; // 返回新的 Set
-        }
-  
-        // 获取对象的所有属性，包括 Symbol 类型和不可枚举的属性
-        const keys = Reflect.ownKeys(data);
-        // 获取对象所有属性的描述符
-        const allDesc = Object.getOwnPropertyDescriptors(data);
-        // 创建新的对象并继承原对象的原型链
-        const result = Object.create(Object.getPrototypeOf(data), allDesc);
-  
-        map.set(data, result); // 记录当前对象到 map
-  
-        // 对象属性的深拷贝
-        keys.forEach((key) => {
-          result[key] = clone(data[key]);
-        });
-  
-        return result; // 返回新的对象
-      }
-  
-      return clone(target); // 开始深拷贝
-  }
-  ```
-
-* 防抖节流
-
 * 实现Axios
 
 * 实现Promise
@@ -179,7 +91,6 @@
 * IntersectionObserver [JavaScript如何判断一个元素是否在可视区域中？ - 喆星高照 - 博客园 (cnblogs.com)](https://www.cnblogs.com/houxianzhou/p/14565056.html) 
 * [MutationObserver 监听DOM树变化 - 简书 (jianshu.com)](https://www.jianshu.com/p/b5c9e4c7b1e1) 
 * Map和weakMap（Set和weakSet）的区别，，weakMap和weakSet无法被遍历
-* [JS 数组的排序 sort() 方法原理详解_js sort原理_wincheshe的博客-CSDN博客](https://blog.csdn.net/m0_52409770/article/details/123023667) 
 * [慎用 JSON.stringify (qq.com)](https://mp.weixin.qq.com/s?__biz=MzA4ODUzNTE2Nw==&mid=2451064232&idx=1&sn=21047e8978c2d5f31be990878248f2d2&chksm=87c45cb8b0b3d5ae85ba2aebd0cf853200dd64930d9625c098f7f51fd29163037f25f6208f40&mpshare=1&scene=24&srcid=1026bhLK5Vn141rRbJMSPj97&sharer_sharetime=1666744303527&sharer_shareid=d51a6f66e5bd5b4dc17352e2012bcfe0#rd) 
 
 ## 综合
