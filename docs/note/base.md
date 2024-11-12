@@ -9,7 +9,7 @@
 4. 箭头函数不能当做Generator函数，不能使用`yield`关键字。
 5. 注意`new`调用和常规调用函数内`this`指向的区别。
 
-    ```javascript
+    ```js
     function Fn() {
         this.hello = "world"
         console.log(this);
@@ -18,19 +18,23 @@
     new Fn() // Fn {hello: 'world'}
     ```
 
-> [箭头函数与普通函数区别](https://segmentfault.com/a/1190000040016702#item-2-1)
+::: info
+- [箭头函数与普通函数区别](https://segmentfault.com/a/1190000040016702#item-2-1)
+:::
 
 ### 关于setTimeout
 1. 浏览器下setTimeout由window对象调用。
 2. 传递的一般延迟函数最终在window调用，this指向window（箭头函数除外）。
 
-> [setTimeout详解 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/110274000)   
-> [谈谈setTimeout的作用域以及this的指向问题 - 博客园 (cnblogs.com)](https://www.cnblogs.com/yuqingfamily/p/5816560.html) 
+::: info
+- [setTimeout详解 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/110274000)   
+- [谈谈setTimeout的作用域以及this的指向问题 - 博客园 (cnblogs.com)](https://www.cnblogs.com/yuqingfamily/p/5816560.html) 
+:::
 
 ### 区分var、let、cosnt
 - 变量提升（函数的优先级更高）
 
-    ```javascript
+    ```js
     function fn() {
         console.log('a', a);
         
@@ -47,7 +51,7 @@
 
 - let 声明的变量拥有块级作用域，在 for 循环或 if 中用 let 定义变量，在外面是访问不到的。形如`for (let i...)`的循环在每次迭代时都为i创建一个新变量，并以之前迭代中同名变量的值将其初始化，所以上面的代码实际上相当于：
 
-    ```javascript
+    ```js
     for (let i = 0) {
     const log = () => {
         console.log(i)
@@ -67,11 +71,13 @@
     setTimeout(log, 100)
     }
     ```
-> [总结下var、let 和 const 的区别 - SegmentFault 思否](https://segmentfault.com/a/1190000016491581)   
-> [前端基石：一段代码隐含了多少基础知识？ (qq.com)](https://mp.weixin.qq.com/s?__biz=MzUzNjk5MTE1OQ==&mid=2247517857&idx=1&sn=ed632d39cc2fe260ec8f64782b295b1c&chksm=faef0279cd988b6f345733dec0fd3aff203cb573ad5bea106f46b3345cb1ca14bffe38931fba&mpshare=1&scene=24&srcid=0607xr7eE1wjJ68nvkRslnBD&sharer_sharetime=1654588547040&sharer_shareid=d51a6f66e5bd5b4dc17352e2012bcfe0#rd) 
+::: info
+- [总结下var、let 和 const 的区别 - SegmentFault 思否](https://segmentfault.com/a/1190000016491581)   
+- [前端基石：一段代码隐含了多少基础知识？ (qq.com)](https://mp.weixin.qq.com/s?__biz=MzUzNjk5MTE1OQ==&mid=2247517857&idx=1&sn=ed632d39cc2fe260ec8f64782b295b1c&chksm=faef0279cd988b6f345733dec0fd3aff203cb573ad5bea106f46b3345cb1ca14bffe38931fba&mpshare=1&scene=24&srcid=0607xr7eE1wjJ68nvkRslnBD&sharer_sharetime=1654588547040&sharer_shareid=d51a6f66e5bd5b4dc17352e2012bcfe0#rd) 
+:::
 
 ### 实现new操作符
-```javascript
+```js
 function create(Con,...args){
     //1、创建一个空的对象
     let obj = {}; // let obj = Object.create({});
@@ -87,7 +93,7 @@ function create(Con,...args){
 ### 数组的sort方法
 该方法传入一个用来进行排序的函数。
 如果不传入排序函数，sort函数会将每个元素转换成字符串，然后根据各个字符的Unicode值排序。特别注意数字情况：
-```javascript
+```js
 var arr = [5, 22, 14, 9];
 console.log(arr.sort()); // [14, 22, 5, 9]
 ```
@@ -101,7 +107,7 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 
 - 特殊情况
 
-    ```javascript
+    ```js
     +0===-0 // true
     NaN===NaN // false
     +Infinity===-Infinity // false
@@ -118,11 +124,12 @@ console.log(arr.sort()); // [14, 22, 5, 9]
     | null      | 0      | "null"            | false   |
     | undefined | NaN    | "undefined"       | false   |
 
-> [细说 JavaScript 七种数据类型 - 一像素 - 博客园 (cnblogs.com)](https://www.cnblogs.com/onepixel/p/5140944.html)   
-> [Symbol类型的应用场景（意义）和使用方法 - 前端开发博客 (nblogs.com)](https://www.nblogs.com/archives/489/)   
-> [判断JS数据类型的四种方法 - 一像素 - 博客园 (cnblogs.com)](https://www.cnblogs.com/onepixel/p/5126046.html)   
-> [js隐式类型转换_51CTO博客_js类型转换](https://blog.51cto.com/u_15100527/2617182) 
-
+::: info
+- [细说 JavaScript 七种数据类型 - 一像素 - 博客园 (cnblogs.com)](https://www.cnblogs.com/onepixel/p/5140944.html)   
+- [Symbol类型的应用场景（意义）和使用方法 - 前端开发博客 (nblogs.com)](https://www.nblogs.com/archives/489/)   
+- [判断JS数据类型的四种方法 - 一像素 - 博客园 (cnblogs.com)](https://www.cnblogs.com/onepixel/p/5126046.html)   
+- [js隐式类型转换_51CTO博客_js类型转换](https://blog.51cto.com/u_15100527/2617182) 
+:::
 
 ### 闭包
 
@@ -130,8 +137,9 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 
 函数内包含函数，内部函数引用了外部的变量，导致外部函数在执行结束后不回收这部分变量，因此使用闭包需要注意内存泄漏。
 
-> [闭包 - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) 
-
+::: info
+- [闭包 - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures) 
+:::
 
 ### 迭代遍历
 
@@ -141,7 +149,7 @@ console.log(arr.sort()); // [14, 22, 5, 9]
 
 2. 迭代器
 - `Symbol.iterator`即为迭代器，是一个函数，返回一个迭代器对象。可以自定义实现，Array等具有默认实现。
-    ```javascript
+    ```js
     let obj1 = {
         'name': '前端小鹿',
         'age': '18',
@@ -176,14 +184,14 @@ console.log(arr.sort()); // [14, 22, 5, 9]
         console.log(i); // "name:前端小鹿" "age:18" "sex:男"
     }
     ```
-
-> [for in 和for of的区别 - 零度从容 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zjx304/p/10687017.html)   
-> [js中的迭代器(Iterator) - 掘金 (juejin.cn)](https://juejin.cn/post/7018850645226569758) 
-
+::: info
+- [for in 和for of的区别 - 零度从容 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zjx304/p/10687017.html)   
+- [js中的迭代器(Iterator) - 掘金 (juejin.cn)](https://juejin.cn/post/7018850645226569758) 
+:::
 
 ### 继承
 
-```javascript
+```js
 function Cat(name){
   Animal.call(this);
   this.name = name || 'Tom';
@@ -192,13 +200,13 @@ Cat.prototype = new Animal();
 
 Cat.prototype.constructor = Cat; // 修复构造函数指向的。
 ```
-
-> [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
-
+::: info
+- [JS实现继承的几种方式 - 幻天芒 - 博客园 (cnblogs.com)](https://www.cnblogs.com/humin/p/4556820.html) 
+:::
 
 ### 深浅拷贝
 
-```javascript
+```js
 function deepClone(target) {
     // 创建一个 WeakMap 来保存已经拷贝过的对象，以防止循环引用
     const map = new Map();
@@ -279,7 +287,7 @@ function deepClone(target) {
 
 ### call、apply和bind
 
-```javascript
+```js
 Function.prototype.imitateCall = function (context) {
     // 赋值作用域参数，如果没有则默认为 window，即访问全局作用域对象
     context = context || window
@@ -336,15 +344,16 @@ Function.prototype.imitateBind = function (context) {
     return bound
 }
 ``` 
-> [call、apply、bind的原理剖析及实现 - 渣渣逆天 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zhazhanitian/p/11400898.html) 
-
+::: info
+- [call、apply、bind的原理剖析及实现 - 渣渣逆天 - 博客园 (cnblogs.com)](https://www.cnblogs.com/zhazhanitian/p/11400898.html) 
+:::
 
 ### 防抖节流
 
 - 防抖：`n`秒后在执行该事件，若在`n`秒内被重复触发，则重新计时。
 - 节流：`n`秒内只运行一次，若在`n`秒内重复触发，只有一次生效。
 
-```javascript
+```js
 function debounce(func, wait, immediate) {
 
     let timeout;
@@ -389,8 +398,9 @@ function throttled(fn, delay) {
     }
 }
 ```
-> [防抖节流的实现](https://vue3js.cn/interview/JavaScript/debounce_throttle.html)
-
+::: info
+- [防抖节流的实现](https://vue3js.cn/interview/JavaScript/debounce_throttle.html)
+:::
 ### 短句
 1. js对象的key类型：字符串（number会转成string）、Symbol。
 2. `length = 0`可将数组清空，再访问内部的元素如`arr[0]`的值为`undefined`。

@@ -26,7 +26,7 @@ const nav = [
   {
     text: "记录",
     activeMatch: `^/record/`,
-    link:'/record'
+    link: '/record'
   },
 ];
 
@@ -56,7 +56,7 @@ export default defineConfig({
     sidebar,
     logo: "logo.svg",
     lastUpdatedText: "最后更新于",
-    outline:{
+    outline: {
       level: 'deep'
     },
     editLink: {
@@ -64,14 +64,12 @@ export default defineConfig({
       text: "在 GitHub 上编辑此页",
     },
   },
-
-  vite: {
-    resolve: {
-      alias: {
-        // "@components": path.resolve(__dirname, "./theme/components/"),
-        "@components": "src/components/",
-
-      },
-    },
-  },
+  // vite: {
+  //   resolve: {
+  //     alias: {
+  //       // "@components": path.resolve(__dirname, "./theme/components/"),
+  //       "@components": "src/components/",
+  //     },
+  //   },
+  // },
 });
