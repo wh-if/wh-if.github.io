@@ -27,19 +27,19 @@ const nav = [
     text: "记录",
     activeMatch: `^/record/`,
     link: '/record'
-  },
+  }
 ];
 
 // https://github.com/vuejs/vitepress/issues/572
 const sidebar = {
   "/record": [
     {
-      text: "2023年",
+      text: "默认分类",
       collapsed: true,
       items: [
         {
-          text: "九月",
-          link: "/record/2023/9"
+          text: "Git",
+          link: "/record/git"
         },
       ],
     },
@@ -54,14 +54,11 @@ export default defineConfig({
   themeConfig: {
     nav,
     sidebar,
-    logo: "logo.svg",
-    lastUpdatedText: "最后更新于",
     outline: {
       level: 'deep'
     },
     editLink: {
       pattern: "https://github.com/wh-if.github.io/edit/master/src/docs/:path",
-      text: "在 GitHub 上编辑此页",
     },
   },
   // vite: {

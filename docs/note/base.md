@@ -53,22 +53,22 @@
 
     ```js
     for (let i = 0) {
-    const log = () => {
-        console.log(i)
-    }
-    setTimeout(log, 100)
+        const log = () => {
+            console.log(i)
+        }
+        setTimeout(log, 100)
     }
     for (let i = 1) {
-    const log = () => {
-        console.log(i)
-    }
-    setTimeout(log, 100)
+        const log = () => {
+            console.log(i)
+        }
+        setTimeout(log, 100)
     }
     for (let i = 2) {
-    const log = () => {
-        console.log(i)
-    }
-    setTimeout(log, 100)
+        const log = () => {
+            console.log(i)
+        }
+        setTimeout(log, 100)
     }
     ```
 ::: info
