@@ -401,6 +401,33 @@ function throttled(fn, delay) {
 ::: info
 - [防抖节流的实现](https://vue3js.cn/interview/JavaScript/debounce_throttle.html)
 :::
+
+### 原型链
+1. 函数既是函数也是对象，特别注意Function、Object、Array这些。把函数看成对象，其`__proto__`指向`Function.prototype`；把函数看出函数，其`prototype`指向函数的原型对象。
+2. 每个对象都有一个`__proto__`属性，指向创建该对象的构造函数的原型对象，即`prototype`。
+```js
+function Hello(params) {
+  const str = "world";
+  console.log(str);
+}
+
+const hello = new Hello();
+
+const v1 = hello.__proto__ === Hello.prototype;
+const v2 = Hello.prototype.__proto__ === Object.prototype;
+const v3 = Object.prototype.__proto__ === null;
+
+const v4 = Hello.__proto__ === Function.prototype;
+const v5 = Function.prototype.__proto__ === Object.prototype;
+
+const v6 = Object.__proto__ === Function.prototype;
+
+const v7 = Function.__proto__ === Function.prototype;
+```
+:::info
+- [原型链](https://www.jianshu.com/p/700a2a579351)
+:::
+
 ### 短句
 1. js对象的key类型：字符串（number会转成string）、Symbol。
 2. `length = 0`可将数组清空，再访问内部的元素如`arr[0]`的值为`undefined`。

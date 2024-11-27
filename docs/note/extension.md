@@ -10,3 +10,6 @@
 2. [ES6 入门教程 - ECMAScript 6 入门 (ruanyifeng.com)](https://es6.ruanyifeng.com/) 
 
 3. [ES7、ES8、ES9、ES10新特性大盘点 (qq.com)](https://mp.weixin.qq.com/s?__biz=MzA4ODUzNTE2Nw==&mid=2451062747&idx=4&sn=086c6b62742a7ad0722da95cab353720&chksm=87c426cbb0b3afdd9edcd253c6455abf53424c79fea7f211dc111bbbc688e0ef0c02ebe2385f&mpshare=1&scene=24&srcid=0424NUMoXFvmBGVRH4hlnMjL&sharer_sharetime=1650806500502&sharer_shareid=d51a6f66e5bd5b4dc17352e2012bcfe0#rd) 
+
+## 分类三
+1. [Thunk 函数的含义和用法](http://www.ruanyifeng.com/blog/2015/05/thunk.html) 

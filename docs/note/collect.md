@@ -55,16 +55,11 @@
 * [Array - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array) 
 * [String - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String) 
 
-### 原型和原型链：Object和Function
-
-* [关于原型和原型链的详细理解 - 简书 (jianshu.com)](https://www.jianshu.com/p/700a2a579351) 
-
 
 ### Promise、Generator 和 async/await 
 
 * Promise优缺点
 * async和await会编译成什么
-* [Thunk 函数的含义和用法 - 阮一峰的网络日志 (ruanyifeng.com)](http://www.ruanyifeng.com/blog/2015/05/thunk.html) 
 
 ### 模块化（commonjs、amd、cmd）
 
